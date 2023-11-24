@@ -2,7 +2,7 @@ import tkinter
 import login
 
 root = tkinter.Tk()
-root.title("Balls")
+root.title("Login System")
 root.resizable(width=False, height=False)
 root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)
