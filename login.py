@@ -126,6 +126,20 @@ class Login_Interfaces:
         self.database_access.crsr.execute("DELETE FROM Logins WHERE username = ?", (username,))
         self.database_access.commit_connection()
 
+    def delete_login_gui(self, username):
+        self.database_access.crsr.execute("SELECT * FROM Logins WHERE username = ?", (username,))
+        logins = self.database_access.crsr.fetchall()
+
+        if logins:
+            self.database_access.crsr.execute("DELETE FROM Logins WHERE username = ?", (username,))
+            self.database_access.commit_connection()
+            return True
+
+        elif not logins:
+            return False
+
+
+
     def create_login_gui(self, username, password):
         self.database_access.crsr.execute("SELECT * FROM Logins WHERE username = ?", (username,))
         logins = self.database_access.crsr.fetchall()
@@ -135,7 +149,7 @@ class Login_Interfaces:
 
         self.database_access.commit_connection()
 
-    def login_gui_bool(self, username, password):
+    def login_gui_bool(self, username, password=None):
         self.database_access.crsr.execute("SELECT * FROM Logins WHERE username = ?", (username,))
         logins = self.database_access.crsr.fetchall()
 
@@ -144,6 +158,8 @@ class Login_Interfaces:
         elif (logins[0][0] == username) and (logins[0][1] == password):
             return True
             self.login_status = True
+        elif (logins[0][0] == username) and (password == None):
+            return None
 
 
 if __name__ == "__main__":
